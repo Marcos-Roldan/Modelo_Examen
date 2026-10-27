@@ -99,19 +99,39 @@ public class ExamenRA1B {
     }
 
     /** Ejercicio 4 (1 punto): leer un entero binario y mostrar el árbol con ese ID. */
-    private static void ejercicio4LeerIdYMostrarArbol(
-            Path ficheroId, HashMap<Integer, Arbol> arboles) {
-        // TODO: leer un entero binario de 32 bits (formato de DataInputStream.readInt).
-        // Buscar por clave y mostrar el árbol con su toString(), o indicar que no existe.
-        // Gestionar recursos y errores, incluido un fichero incompleto.
+    private static void ejercicio4LeerIdYMostrarArbol(Path ficheroId, HashMap<Integer, Arbol> arboles) {
+        try(DataInputStream dis = new DataInputStream(Files.newInputStream(ficheroId))) {
+            int id = dis.readInt();
+
+            Arbol arbol = arboles.get(id);
+
+            if(arbol != null) {
+                System.out.println("Arbol encontrado: " + arbol.toString());
+            } else {
+                System.out.println("No existe un arbol con ese ID: " + id);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
+        }
     }
 
     /** Ejercicio 5 (2 puntos): errores por línea y duplicados dentro del fichero 3. */
     private static HashMap<Integer, Arbol> ejercicio5LeerArbolesConErrores(Path entrada) {
         HashMap<Integer, Arbol> arboles = new HashMap<>();
-        // TODO: leer en UTF-8 y tratar separadamente las dos excepciones y null.
-        // Conservar la primera aparición de cada ID. Informar de línea y causa
-        // para cada descarte; continuar con la siguiente línea. Mostrar el total.
+
+        try(BufferedReader br = new BufferedReader(new FileReader(entrada.toFile()))) {
+            Arbol arbol = null;
+
+            for(Arbol arbol1 : arboles.values()) {
+                
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado:" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+
         return arboles;
     }
 
